@@ -69,10 +69,12 @@ class App extends React.Component {
   }
 }
 
+// For inject state as props
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
 });
 
+// For inject actions
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });

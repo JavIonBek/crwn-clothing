@@ -42,7 +42,7 @@ class App extends React.Component {
       }
 
       setCurrentUser(userAuth);
-      // For adding shop data o firestore database
+      // For adding shop data to firestore database
       // addCollectionAndDocuments(
       //   "collections",
       //   collectionsArray.map(({ title, items }) => ({ title, items }))

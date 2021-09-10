@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -11,7 +11,7 @@ import { selectCurrentUser } from "./redux/user/user.selectors";
 import CheckoutPage from "./pages/checkout/checkout.component";
 import { checkUserSession } from "./redux/user/user.actions";
 
-class App extends React.Component {
+const App = ({ checkUserSession, currentUser }) => {
   // constructor() {
   //   super();
 
@@ -20,60 +20,58 @@ class App extends React.Component {
   //   };
   // }
 
-  unsubscribeFromAuth = null;
+  // unsubscribeFromAuth = null;
 
-  componentDidMount() {
-    const { checkUserSession } = this.props;
+  useEffect(() => {
     checkUserSession();
+  }, [checkUserSession]);
 
-    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-    //   if (userAuth) {
-    //     const userRef = await createUserProfileDocument(userAuth);
-    //     userRef.onSnapshot((snapShot) => {
-    //       setCurrentUser({
-    //         id: snapShot.id,
-    //         ...snapShot.data(),
-    //       });
-    //       // console.log(this.state);
-    //     });
-    //   }
-    //   setCurrentUser(userAuth);
-    // For adding shop data to firestore database
-    // addCollectionAndDocuments(
-    //   "collections",
-    //   collectionsArray.map(({ title, items }) => ({ title, items }))
-    // );
-    // });
-  }
+  // componentDidMount() {
+  //   const { checkUserSession } = this.props;
+  //   checkUserSession();
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+  // this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+  //   if (userAuth) {
+  //     const userRef = await createUserProfileDocument(userAuth);
+  //     userRef.onSnapshot((snapShot) => {
+  //       setCurrentUser({
+  //         id: snapShot.id,
+  //         ...snapShot.data(),
+  //       });
+  //       // console.log(this.state);
+  //     });
+  //   }
+  //   setCurrentUser(userAuth);
+  // For adding shop data to firestore database
+  // addCollectionAndDocuments(
+  //   "collections",
+  //   collectionsArray.map(({ title, items }) => ({ title, items }))
+  // );
+  // });
+  // }
 
-  render() {
-    return (
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route exact path="/checkout" component={CheckoutPage} />
-          <Route
-            exact
-            path="/signin"
-            render={() =>
-              this.props.currentUser ? (
-                <Redirect to="/" />
-              ) : (
-                <SignInAndSignUpPage />
-              )
-            }
-          />
-        </Switch>
-      </div>
-    );
-  }
-}
+  // componentWillUnmount() {
+  //   this.unsubscribeFromAuth();
+  // }
+
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/shop" component={ShopPage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
+        <Route
+          exact
+          path="/signin"
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
+          }
+        />
+      </Switch>
+    </div>
+  );
+};
 
 // For inject state as props
 const mapStateToProps = createStructuredSelector({

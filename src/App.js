@@ -22,6 +22,7 @@ const App = ({ checkUserSession, currentUser }) => {
 
   // unsubscribeFromAuth = null;
 
+  // componentDidMount
   useEffect(() => {
     checkUserSession();
   }, [checkUserSession]);

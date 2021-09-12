@@ -6,6 +6,7 @@ import CollectionPageContainer from "../collection/collection.container";
 import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
 
 const ShopPage = ({ fetchCollectionsStart, match }) => {
+  // componentDidMount
   useEffect(() => {
     fetchCollectionsStart();
   }, [fetchCollectionsStart]);
